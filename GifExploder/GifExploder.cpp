@@ -19,7 +19,7 @@
 /*                                                                 */
 /*******************************************************************/
 
-#include "IO.h"
+#include "GifExploder.h"
 #include "gif.hpp"
 #include <string>
 
@@ -99,7 +99,7 @@ My_InitInSpecFromFile(
 		*/
 		
 		ERR(suites.MemorySuite1()->AEGP_NewMemHandle(	S_mem_id,
-														"SDK_IO optionsH", 
+														"GifExploder optionsH",
 														sizeof(IO_FileHeader), 
 														AEGP_MemFlag_CLEAR, 
 														&optionsH));
@@ -298,7 +298,7 @@ My_GetInSpecInfo(
 	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
 	
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "Made-up name");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (SDK IO)");
+	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (GifExploder)");
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "Put your codec info here");
 
 	return A_Err_NONE;
@@ -398,7 +398,7 @@ My_GetSound(
 
 	if (!err && headerP) {
 		A_char report[AEGP_MAX_ABOUT_STRING_SIZE] = {'\0'};
-		suites.ANSICallbacksSuite1()->sprintf(report, "SDK_IO : %d samples of audio requested.", num_samplesLu); 
+		suites.ANSICallbacksSuite1()->sprintf(report, "GifExploder : %d samples of audio requested.", num_samplesLu);
 			
 		ERR(suites.UtilitySuite3()->AEGP_ReportInfo(basic_dataP->aegp_plug_id, report));
 
@@ -569,7 +569,7 @@ My_GetOutputInfo(
 	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
 
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "filename");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (SDK IO)");
+	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (GifExploder)");
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "No codecs supported in this sample");
 	return err;
 };
@@ -844,7 +844,7 @@ My_AddSoundChunk(
 		ERR(suites.MemorySuite1()->AEGP_LockMemHandle(optionsH, reinterpret_cast<void**>(&optionsP)));
 		if (!err) {
 			A_char report[AEGP_MAX_ABOUT_STRING_SIZE] = {'\0'};
-			suites.ANSICallbacksSuite1()->sprintf(report, "SDK_IO : Pretended to write %d samples of audio requested.", num_samplesLu); 
+			suites.ANSICallbacksSuite1()->sprintf(report, "GifExploder : Pretended to write %d samples of audio requested.", num_samplesLu);
 			ERR(suites.UtilitySuite3()->AEGP_ReportInfo(	basic_dataP->aegp_plug_id, report));
 		}
 	}
@@ -1014,7 +1014,7 @@ ConstructModuleInfo(
 		info->create_ext.extension[1]	=	'a';
 		info->create_ext.extension[2]	=	'k';
 
-		suites.ANSICallbacksSuite1()->strcpy(info->name, "SDK_IO");
+		suites.ANSICallbacksSuite1()->strcpy(info->name, "GifExploder");
 		
 		info->num_aux_extensionsS		=	0;
 
@@ -1116,7 +1116,7 @@ EntryPointFunc(
 													&funcs));
 
 	ERR(suites.UtilitySuite3()->AEGP_RegisterWithAEGP(	NULL,
-														"SDK_IO",
+														"GifExploder",
 														&S_mem_id));
 	return err;
 }

@@ -1,6 +1,6 @@
 //
 //  gif.hpp
-//  IO
+//  GifExploder
 //
 //  Created by Miles Luders on 10/5/18.
 //

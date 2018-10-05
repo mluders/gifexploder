@@ -8,8 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		7EF36FE716F29AAE002A3CB3 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EF36FE616F29AAE002A3CB3 /* Cocoa.framework */; };
-		D092F695099B9DCB00D8FE41 /* IO_PiPL.r in Rez */ = {isa = PBXBuildFile; fileRef = D092F694099B9DCB00D8FE41 /* IO_PiPL.r */; };
-		D0FDF9BB09941656008E4F6B /* IO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FDF9B709941656008E4F6B /* IO.cpp */; };
+		D092F695099B9DCB00D8FE41 /* GifExploder_PiPL.r in Rez */ = {isa = PBXBuildFile; fileRef = D092F694099B9DCB00D8FE41 /* GifExploder_PiPL.r */; };
+		D0FDF9BB09941656008E4F6B /* GifExploder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FDF9B709941656008E4F6B /* GifExploder.cpp */; };
 		D0FE579D0993C5E500139A60 /* AEGP_SuiteHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FE579A0993C5E500139A60 /* AEGP_SuiteHandler.cpp */; };
 		D0FE579E0993C5E500139A60 /* MissingSuiteError.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FE579C0993C5E500139A60 /* MissingSuiteError.cpp */; };
 		DBC74B572167D9EC00D7B935 /* gif.cpp in Sources */ = {isa = PBXBuildFile; fileRef = DBC74B552167D9EC00D7B935 /* gif.cpp */; };
@@ -23,10 +23,10 @@
 		7E878FB41664973C00BA12B3 /* SPMData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SPMData.h; path = ../../Headers/SP/SPMData.h; sourceTree = "<group>"; };
 		7E878FB51664976200BA12B3 /* AE_Macros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AE_Macros.h; path = ../../Headers/AE_Macros.h; sourceTree = "<group>"; };
 		7EF36FE616F29AAE002A3CB3 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
-		C4E618CC095A3CE80012CA3F /* IO.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IO.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
-		D092F694099B9DCB00D8FE41 /* IO_PiPL.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = IO_PiPL.r; path = ../IO_PiPL.r; sourceTree = SOURCE_ROOT; };
-		D0FDF9B709941656008E4F6B /* IO.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = IO.cpp; path = ../IO.cpp; sourceTree = SOURCE_ROOT; };
-		D0FDF9B809941656008E4F6B /* IO.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = IO.h; path = ../IO.h; sourceTree = SOURCE_ROOT; };
+		C4E618CC095A3CE80012CA3F /* GifExploder.plugin */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GifExploder.plugin; sourceTree = BUILT_PRODUCTS_DIR; };
+		D092F694099B9DCB00D8FE41 /* GifExploder_PiPL.r */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.rez; name = GifExploder_PiPL.r; path = ../GifExploder_PiPL.r; sourceTree = SOURCE_ROOT; };
+		D0FDF9B709941656008E4F6B /* GifExploder.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = GifExploder.cpp; path = ../GifExploder.cpp; sourceTree = SOURCE_ROOT; };
+		D0FDF9B809941656008E4F6B /* GifExploder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GifExploder.h; path = ../GifExploder.h; sourceTree = SOURCE_ROOT; };
 		D0FE579A0993C5E500139A60 /* AEGP_SuiteHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AEGP_SuiteHandler.cpp; path = ../../Util/AEGP_SuiteHandler.cpp; sourceTree = SOURCE_ROOT; };
 		D0FE579C0993C5E500139A60 /* MissingSuiteError.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MissingSuiteError.cpp; path = ../../Util/MissingSuiteError.cpp; sourceTree = SOURCE_ROOT; };
 		DBC74B552167D9EC00D7B935 /* gif.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gif.cpp; sourceTree = "<group>"; };
@@ -54,9 +54,9 @@
 				DBC74B592167DA6D00D7B935 /* gifenc.c */,
 				DBC74B552167D9EC00D7B935 /* gif.cpp */,
 				DBC74B562167D9EC00D7B935 /* gif.hpp */,
-				D0FDF9B709941656008E4F6B /* IO.cpp */,
-				D0FDF9B809941656008E4F6B /* IO.h */,
-				D092F694099B9DCB00D8FE41 /* IO_PiPL.r */,
+				D0FDF9B709941656008E4F6B /* GifExploder.cpp */,
+				D0FDF9B809941656008E4F6B /* GifExploder.h */,
+				D092F694099B9DCB00D8FE41 /* GifExploder_PiPL.r */,
 				D0FE57630993C4FD00139A60 /* Supporting Code */,
 				7EF36FE616F29AAE002A3CB3 /* Cocoa.framework */,
 				C4E6188C095A3C800012CA3F /* Products */,
@@ -66,7 +66,7 @@
 		C4E6188C095A3C800012CA3F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4E618CC095A3CE80012CA3F /* IO.plugin */,
+				C4E618CC095A3CE80012CA3F /* GifExploder.plugin */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,9 +88,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4E618CB095A3CE80012CA3F /* IO */ = {
+		C4E618CB095A3CE80012CA3F /* GifExploder */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4E618CE095A3CE90012CA3F /* Build configuration list for PBXNativeTarget "IO" */;
+			buildConfigurationList = C4E618CE095A3CE90012CA3F /* Build configuration list for PBXNativeTarget "GifExploder" */;
 			buildPhases = (
 				C4E618C9095A3CE80012CA3F /* Sources */,
 				C4E618CA095A3CE80012CA3F /* Frameworks */,
@@ -101,9 +101,9 @@
 			);
 			dependencies = (
 			);
-			name = IO;
+			name = GifExploder;
 			productName = IO.plugin;
-			productReference = C4E618CC095A3CE80012CA3F /* IO.plugin */;
+			productReference = C4E618CC095A3CE80012CA3F /* GifExploder.plugin */;
 			productType = "com.apple.product-type.bundle";
 		};
 /* End PBXNativeTarget section */
@@ -114,7 +114,7 @@
 			attributes = {
 				LastUpgradeCheck = 1000;
 			};
-			buildConfigurationList = C4E6187F095A3C800012CA3F /* Build configuration list for PBXProject "IO" */;
+			buildConfigurationList = C4E6187F095A3C800012CA3F /* Build configuration list for PBXProject "GifExploder" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -126,7 +126,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C4E618CB095A3CE80012CA3F /* IO */,
+				C4E618CB095A3CE80012CA3F /* GifExploder */,
 			);
 		};
 /* End PBXProject section */
@@ -146,7 +146,7 @@
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D092F695099B9DCB00D8FE41 /* IO_PiPL.r in Rez */,
+				D092F695099B9DCB00D8FE41 /* GifExploder_PiPL.r in Rez */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -161,7 +161,7 @@
 				D0FE579E0993C5E500139A60 /* MissingSuiteError.cpp in Sources */,
 				DBC74B5A2167DA6D00D7B935 /* gifenc.c in Sources */,
 				DBC74B572167D9EC00D7B935 /* gif.cpp in Sources */,
-				D0FDF9BB09941656008E4F6B /* IO.cpp in Sources */,
+				D0FDF9BB09941656008E4F6B /* GifExploder.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,10 +240,10 @@
 					../../Util,
 					../../Resources,
 				);
-				INFOPLIST_FILE = "IO.plugin-Info.plist";
+				INFOPLIST_FILE = "GifExploder.plugin-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
-				PRODUCT_BUNDLE_IDENTIFIER = com.adobe.AfterEffects.IO;
-				PRODUCT_NAME = IO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mluders.GifExploder;
+				PRODUCT_NAME = GifExploder;
 				SDKROOT = macosx;
 				ZERO_LINK = NO;
 			};
@@ -252,7 +252,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4E6187F095A3C800012CA3F /* Build configuration list for PBXProject "IO" */ = {
+		C4E6187F095A3C800012CA3F /* Build configuration list for PBXProject "GifExploder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4E61880095A3C800012CA3F /* Debug */,
@@ -260,7 +260,7 @@
 			defaultConfigurationIsVisible = 1;
 			defaultConfigurationName = Debug;
 		};
-		C4E618CE095A3CE90012CA3F /* Build configuration list for PBXNativeTarget "IO" */ = {
+		C4E618CE095A3CE90012CA3F /* Build configuration list for PBXNativeTarget "GifExploder" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4E618CF095A3CE90012CA3F /* Debug */,
