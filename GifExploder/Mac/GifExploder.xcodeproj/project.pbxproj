@@ -29,10 +29,10 @@
 		D0FDF9B809941656008E4F6B /* GifExploder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GifExploder.h; path = ../GifExploder.h; sourceTree = SOURCE_ROOT; };
 		D0FE579A0993C5E500139A60 /* AEGP_SuiteHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AEGP_SuiteHandler.cpp; path = ../../Util/AEGP_SuiteHandler.cpp; sourceTree = SOURCE_ROOT; };
 		D0FE579C0993C5E500139A60 /* MissingSuiteError.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MissingSuiteError.cpp; path = ../../Util/MissingSuiteError.cpp; sourceTree = SOURCE_ROOT; };
-		DBC74B552167D9EC00D7B935 /* gif.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gif.cpp; sourceTree = "<group>"; };
-		DBC74B562167D9EC00D7B935 /* gif.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gif.hpp; sourceTree = "<group>"; };
-		DBC74B582167DA6D00D7B935 /* gifenc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gifenc.h; sourceTree = "<group>"; };
-		DBC74B592167DA6D00D7B935 /* gifenc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gifenc.c; sourceTree = "<group>"; };
+		DBC74B552167D9EC00D7B935 /* gif.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gif.cpp; path = ../gif.cpp; sourceTree = "<group>"; };
+		DBC74B562167D9EC00D7B935 /* gif.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = gif.hpp; path = ../gif.hpp; sourceTree = "<group>"; };
+		DBC74B582167DA6D00D7B935 /* gifenc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gifenc.h; path = ../gifenc.h; sourceTree = "<group>"; };
+		DBC74B592167DA6D00D7B935 /* gifenc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = gifenc.c; path = ../gifenc.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
