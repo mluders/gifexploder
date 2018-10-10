@@ -1,0 +1,1 @@
+/Applications/Adobe\ After\ Effects\ CC\ 2018/aerender -project "/Volumes/Vault/Projects/gifexploder/scripts/greeting.aepx" -comp hello -output "/Volumes/Vault/Projects/gifexploder/scripts/whatup.mov"

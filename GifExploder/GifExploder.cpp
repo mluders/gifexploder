@@ -298,7 +298,7 @@ My_GetInSpecInfo(
 	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
 	
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "Made-up name");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (GifExploder)");
+	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "GIF (GifExploder)");
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "Put your codec info here");
 
 	return A_Err_NONE;
@@ -569,7 +569,7 @@ My_GetOutputInfo(
 	AEGP_SuiteHandler	suites(basic_dataP->pica_basicP);
 
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->name, "filename");
-	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "FAK (GifExploder)");
+	suites.ANSICallbacksSuite1()->strcpy(verbiageP->type, "GIF (GifExploder)");
 	suites.ANSICallbacksSuite1()->strcpy(verbiageP->sub_type, "No codecs supported in this sample");
 	return err;
 };
@@ -626,8 +626,21 @@ My_SetOutputFile(
 	AEIO_BasicData		*basic_dataP,
 	AEIO_OutSpecH		outH, 
 	const A_UTF16Char	*file_pathZ)
-{ 
-  	return AEIO_Err_USE_DFLT_CALLBACK;
+{
+    /*uint8_t length = 0;
+    char buffer[AEGP_MAX_PATH_SIZE];
+    for (int i=0; i<AEGP_MAX_PATH_SIZE; i++) {
+        char c = file_pathZ[i];
+        buffer[i] = c;
+        length += 1;
+        if (c == '\0') break;
+    }
+    
+  	//int fd = open("/Volumes/Vault/Projects/GifExploder/scripts/text.txt", O_WRONLY | O_CREAT, 0666);
+    int fd = open(buffer, O_WRONLY | O_CREAT, 0666);
+    write(fd, "hello", 5);
+    close(fd);*/
+    return AEIO_Err_USE_DFLT_CALLBACK;
 }
 
 static A_Err	
@@ -706,12 +719,26 @@ My_StartAdding(
 			+	Write header
 			+	(keep file open)
 		*/
+        uint8_t length = 0;
+        char buffer[AEGP_MAX_PATH_SIZE];
+        for (int i=0; i<AEGP_MAX_PATH_SIZE; i++) {
+            char c = file_pathZ[i];
+            buffer[i] = c;
+            length += 1;
+            if (c == '\0') break;
+        }
+        masterGIF = new HF_GIF(buffer, (int)widthL, (int)heightL);
+        
 		ERR(suites.MemorySuite1()->AEGP_UnlockMemHandle(file_pathH));
 		ERR(suites.MemorySuite1()->AEGP_FreeMemHandle(file_pathH));
 	}
     
+    
+    
     //masterGIF = new HF_GIF(std::string(name), (int)widthL, (int)heightL);
-    masterGIF = new HF_GIF("/Users/appfolio/dev/davinci/random.gif", (int)widthL, (int)heightL);
+    //masterGIF = new HF_GIF("/Volumes/Vault/Projects/GifExploder/scripts/random.gif", (int)widthL, (int)heightL);
+    
+    
     
 	return err; 
 };
@@ -999,20 +1026,20 @@ ConstructModuleInfo(
 	AEGP_SuiteHandler	suites(pica_basicP);
 	
 	if (info) {
-		info->sig						=	'FAK_';
+		info->sig						=	'GIF_';
 		info->max_width					=	1920;
 		info->max_height				=	1080;
 		info->num_filetypes				=	1;
 		info->num_extensions			=	1;
 		info->num_clips					=	0;
 		
-		info->create_kind.type			=	'FAK_';
+		info->create_kind.type			=	'GIF_';
 		info->create_kind.creator		=	'DTEK';
 
 		info->create_ext.pad			=	'.';
-		info->create_ext.extension[0]	=	'f';
-		info->create_ext.extension[1]	=	'a';
-		info->create_ext.extension[2]	=	'k';
+		info->create_ext.extension[0]	=	'g';
+		info->create_ext.extension[1]	=	'i';
+		info->create_ext.extension[2]	=	'f';
 
 		suites.ANSICallbacksSuite1()->strcpy(info->name, "GifExploder");
 		
@@ -1027,12 +1054,12 @@ ConstructModuleInfo(
 											AEIO_MFlag_CAN_DO_MARKERS	|
 											AEIO_MFlag_HAS_AUX_DATA;
 
-		info->read_kinds[0].mac.type			=	'FAK_';
+		info->read_kinds[0].mac.type			=	'GIF_';
 		info->read_kinds[0].mac.creator			=	AEIO_ANY_CREATOR;
 		info->read_kinds[1].ext.pad				=	'.';
-		info->read_kinds[1].ext.extension[0]	=	'f';
-		info->read_kinds[1].ext.extension[1]	=	'a';
-		info->read_kinds[1].ext.extension[2]	=	'k';
+		info->read_kinds[1].ext.extension[0]	=	'g';
+		info->read_kinds[1].ext.extension[1]	=	'i';
+		info->read_kinds[1].ext.extension[2]	=	'f';
 	} else {
 		err = A_Err_STRUCT;
 	}
