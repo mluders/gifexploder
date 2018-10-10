@@ -54,14 +54,14 @@ function main() {
     while (!f.eof) {
         text = f.readln();
         layer.property("Source Text").setValue(text);
-        item = app.project.renderQueue.items.add(comp);
+        item = app.project.renderQueue.items.add(comp)
         om = item.outputModule(1);
+        om.applyTemplate("HowdyFox");
         output_name = text.split('.').join('-');
         om.file = new File(outputFolder.toString() + "/" + "what_happened_cart_crash_" + output_name);
         //app.project.renderQueue.queueInAME(true);
         app.project.renderQueue.render();
     }
-
 }
 
 main();
