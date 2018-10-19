@@ -21,11 +21,13 @@ function GetLayer(comp, title) {
 }
 
 function OpenFile() {
-    var myFile = File.openDialog("Please select input text file.");
-    if (myFile == null) {
-        return
-    }
-    
+    //var myFile = File.openDialog("Please select input text file.");
+    //if (myFile == null) {
+    //    return
+    //}
+
+    var myFile = new File('$VARIANT_LIST_PATH$');
+
     // open file
     var fileOK = myFile.open("r");
     if (fileOK) {
