@@ -22,11 +22,15 @@
 #include "GifExploder.h"
 #include "gif.hpp"
 #include <string>
+#include <chrono>
+#include <iostream>
 
 /*	Statics and globals are bad. Never use them in production code.  */
 
 static	AEGP_PluginID			S_mem_id					=	0;
 HF_GIF *masterGIF;
+std::chrono::high_resolution_clock::time_point t1;
+std::chrono::high_resolution_clock::time_point t2;
 
 static A_Err DeathHook(	
 	AEGP_GlobalRefcon unused1 ,
@@ -627,19 +631,6 @@ My_SetOutputFile(
 	AEIO_OutSpecH		outH, 
 	const A_UTF16Char	*file_pathZ)
 {
-    /*uint8_t length = 0;
-    char buffer[AEGP_MAX_PATH_SIZE];
-    for (int i=0; i<AEGP_MAX_PATH_SIZE; i++) {
-        char c = file_pathZ[i];
-        buffer[i] = c;
-        length += 1;
-        if (c == '\0') break;
-    }
-    
-  	//int fd = open("/Volumes/Vault/Projects/GifExploder/scripts/text.txt", O_WRONLY | O_CREAT, 0666);
-    int fd = open(buffer, O_WRONLY | O_CREAT, 0666);
-    write(fd, "hello", 5);
-    close(fd);*/
     return AEIO_Err_USE_DFLT_CALLBACK;
 }
 
@@ -714,6 +705,10 @@ My_StartAdding(
 		ERR(suites.IOOutSuite4()->AEGP_GetOutSpecFilePath(outH, &file_pathH, &file_reservedB));
 
 		ERR(suites.MemorySuite1()->AEGP_LockMemHandle(file_pathH, reinterpret_cast<void**>(&file_pathZ)));
+        
+        std::cout << "Render is starting" << std::endl;
+        t1 = std::chrono::high_resolution_clock::now();
+
 		/*
 			+	Open file
 			+	Write header
@@ -727,18 +722,12 @@ My_StartAdding(
             length += 1;
             if (c == '\0') break;
         }
+        
         masterGIF = new HF_GIF(buffer, (int)widthL, (int)heightL);
         
 		ERR(suites.MemorySuite1()->AEGP_UnlockMemHandle(file_pathH));
 		ERR(suites.MemorySuite1()->AEGP_FreeMemHandle(file_pathH));
 	}
-    
-    
-    
-    //masterGIF = new HF_GIF(std::string(name), (int)widthL, (int)heightL);
-    //masterGIF = new HF_GIF("/Volumes/Vault/Projects/GifExploder/scripts/random.gif", (int)widthL, (int)heightL);
-    
-    
     
 	return err; 
 };
@@ -792,14 +781,17 @@ My_EndAdding(
 	AEIO_BasicData	*basic_dataP,
 	AEIO_OutSpecH			outH, 
 	A_long					flags)
-{ 
+{
 	/*
 		+	Close file handle, clear out optionsH associated with add.
 	*/
-    
-    //close(masterFD);
-    //masterGIF->close_gif();
+
     masterGIF->close_gif();
+    
+    t2 = std::chrono::high_resolution_clock::now();
+    
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>( t2 - t1 ).count();
+    std::cout << "Elapsed time:    " << elapsedTime << "ms" << std::endl;
 
 	return A_Err_NONE; 
 };
