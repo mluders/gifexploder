@@ -67,13 +67,15 @@ unsigned char pixels[144] = {
     0xFF, 0x00, 0x00, 0xFF
 };
 
+pthread_t writerThread;
+
+
 /*	Statics and globals are bad. Never use them in production code.  */
 
 static	AEGP_PluginID			S_mem_id					=	0;
 //HF_GIF *masterGIF;
 
 //gifski *finalGIF;
-//pthread_t writerThread;
 
 std::chrono::high_resolution_clock::time_point startTime;
 std::chrono::high_resolution_clock::time_point endTime;
@@ -797,26 +799,12 @@ My_StartAdding(
         settings.fast = true;
         
         g = gifski_new(&settings);
-        
-        pthread_t writerThread;
-        
+
         pthread_create(&writerThread, NULL, write_frames, NULL);
         
         
-        gifski_add_frame_rgba(g, 0, 6, 6, pixels, 5);
-        gifski_end_adding_frames(g);
         
-        pthread_join(writerThread, NULL);
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+   
         
         
         
@@ -881,6 +869,19 @@ My_AddFrame(
     gifski_add_frame_rgba(finalGIF, 0, 800, 400, pixels, 4);
     delete[] pixels;*/
     
+    
+    
+    
+    
+    
+    gifski_add_frame_rgba(g, 0, 6, 6, pixels, 5);
+    
+    
+    
+    
+    
+    
+    
 	return err; 
 };
 								
@@ -898,6 +899,17 @@ My_EndAdding(
     //gifski_end_adding_frames(finalGIF);
 
     //pthread_join(writerThread, NULL);
+    
+    
+    
+    gifski_end_adding_frames(g);
+    pthread_join(writerThread, NULL);
+    
+    
+    
+    
+    
+    
     
     endTime = std::chrono::high_resolution_clock::now();
     
