@@ -35,6 +35,9 @@ private:
     int lastB;
     int lastIndex;
     int currentPixel;
+    
+    unsigned char *pixels;
+
 
     const static int numColors = 64;
     uint8_t palette[numColors*3] = {

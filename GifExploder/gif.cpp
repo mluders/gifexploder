@@ -18,6 +18,8 @@ HF_GIF::HF_GIF(std::string fname, int w, int h) : width(w), height(h) {
     lastIndex = 0;
     currentPixel = 0;
     
+    pixels = new unsigned char[width*height*4];
+
     gif = ge_new_gif(
          fname.c_str(),
          width, height,
@@ -48,7 +50,7 @@ int HF_GIF::nearestIndex(int r, int g, int b) {
 }
 
 void HF_GIF::set_pixel(int r, int g, int b) {
-    if (r == lastR && g == lastG && b == lastB) {
+    /*if (r == lastR && g == lastG && b == lastB) {
         gif->frame[currentPixel] = lastIndex;
     } else {
         lastR = r;
@@ -56,15 +58,18 @@ void HF_GIF::set_pixel(int r, int g, int b) {
         lastB = b;
         lastIndex = nearestIndex(r, g, b);
         gif->frame[currentPixel] = lastIndex;
-    }
+    }*/
+    pixels[(currentPixel*3)] = r;
+    pixels[(currentPixel*3)+1] = g;
+    pixels[(currentPixel*3)+2] = b;
     currentPixel++;
 }
 
 void HF_GIF::add_frame() {
-    ge_add_frame(gif, 3);
+    //ge_add_frame(gif, 3);
     currentPixel = 0;
 }
 
 void HF_GIF::close_gif() {
-    ge_close_gif(gif);
+    //ge_close_gif(gif);
 }

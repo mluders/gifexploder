@@ -24,13 +24,59 @@
 #include <string>
 #include <chrono>
 #include <iostream>
+#include <pthread.h>
+#include "gifski.h"
+
+gifski *g;
+unsigned char pixels[144] = {
+    255, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF,
+    0xFF, 0x00, 0x00, 0xFF
+};
 
 /*	Statics and globals are bad. Never use them in production code.  */
 
 static	AEGP_PluginID			S_mem_id					=	0;
-HF_GIF *masterGIF;
-std::chrono::high_resolution_clock::time_point t1;
-std::chrono::high_resolution_clock::time_point t2;
+//HF_GIF *masterGIF;
+
+//gifski *finalGIF;
+//pthread_t writerThread;
+
+std::chrono::high_resolution_clock::time_point startTime;
+std::chrono::high_resolution_clock::time_point endTime;
 
 static A_Err DeathHook(	
 	AEGP_GlobalRefcon unused1 ,
@@ -634,6 +680,11 @@ My_SetOutputFile(
     return AEIO_Err_USE_DFLT_CALLBACK;
 }
 
+static void *write_frames(void *context) {
+    gifski_write(g, "/Users/appfolio/desktop/hello.gif");
+    gifski_drop(g);
+}
+
 static A_Err	
 My_StartAdding(
 	AEIO_BasicData		*basic_dataP,
@@ -707,7 +758,7 @@ My_StartAdding(
 		ERR(suites.MemorySuite1()->AEGP_LockMemHandle(file_pathH, reinterpret_cast<void**>(&file_pathZ)));
         
         std::cout << "Render is starting" << std::endl;
-        t1 = std::chrono::high_resolution_clock::now();
+        startTime = std::chrono::high_resolution_clock::now();
 
 		/*
 			+	Open file
@@ -723,7 +774,51 @@ My_StartAdding(
             if (c == '\0') break;
         }
         
-        masterGIF = new HF_GIF(buffer, (int)widthL, (int)heightL);
+        //masterGIF = new HF_GIF(buffer, (int)widthL, (int)heightL);
+
+        /*GifskiSettings settings;
+        settings.width = widthL;
+        settings.height = heightL;
+        settings.quality = 100;
+        settings.once = false;
+        settings.fast = true;
+        finalGIF = gifski_new(&settings);
+        
+        pthread_create(&writerThread, NULL, write_frames, NULL);*/
+        
+        
+        
+        
+        GifskiSettings settings;
+        settings.width = 1;
+        settings.height = 1;
+        settings.quality = 100;
+        settings.once = false;
+        settings.fast = true;
+        
+        g = gifski_new(&settings);
+        
+        pthread_t writerThread;
+        
+        pthread_create(&writerThread, NULL, write_frames, NULL);
+        
+        
+        gifski_add_frame_rgba(g, 0, 6, 6, pixels, 5);
+        gifski_end_adding_frames(g);
+        
+        pthread_join(writerThread, NULL);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 		ERR(suites.MemorySuite1()->AEGP_UnlockMemHandle(file_pathH));
 		ERR(suites.MemorySuite1()->AEGP_FreeMemHandle(file_pathH));
@@ -764,14 +859,27 @@ My_AddFrame(
 		+	append it to the already-opened file.
 	*/
 
-    for (int i=0; i<masterGIF->height; i++) {
+    /*for (int i=0; i<masterGIF->height; i++) {
         for (int j=0; j<masterGIF->width; j++) {
             PF_Pixel *pixel = sampleIntegral32(*wP, j, i);
-            masterGIF->set_pixel(pixel->red, pixel->green, pixel->blue);
+            //masterGIF->set_pixel(pixel->red, pixel->green, pixel->blue);
+        }
+     }
+    masterGIF->add_frame();*/
+    
+    /*unsigned char* pixels = new unsigned char[800*400*4];
+    for (int i=0; i<400; i++) {
+        for (int j=0; j<800; j++) {
+            PF_Pixel *pixel = sampleIntegral32(*wP, j, i);
+            pixels[i+j+0] = pixel->red;
+            pixels[i+j+1] = pixel->green;
+            pixels[i+j+2] = pixel->blue;
+            pixels[i+j+3] = 255;
+            //masterGIF->set_pixel(pixel->red, pixel->green, pixel->blue);
         }
     }
-    
-    masterGIF->add_frame();
+    gifski_add_frame_rgba(finalGIF, 0, 800, 400, pixels, 4);
+    delete[] pixels;*/
     
 	return err; 
 };
@@ -786,11 +894,14 @@ My_EndAdding(
 		+	Close file handle, clear out optionsH associated with add.
 	*/
 
-    masterGIF->close_gif();
+    //masterGIF->close_gif();
+    //gifski_end_adding_frames(finalGIF);
+
+    //pthread_join(writerThread, NULL);
     
-    t2 = std::chrono::high_resolution_clock::now();
+    endTime = std::chrono::high_resolution_clock::now();
     
-    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>( t2 - t1 ).count();
+    auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>( endTime - startTime ).count();
     std::cout << "Elapsed time:    " << elapsedTime << "ms" << std::endl;
 
 	return A_Err_NONE; 

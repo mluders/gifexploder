@@ -29,6 +29,8 @@
 		D0FDF9B809941656008E4F6B /* GifExploder.h */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.c.h; name = GifExploder.h; path = ../GifExploder.h; sourceTree = SOURCE_ROOT; };
 		D0FE579A0993C5E500139A60 /* AEGP_SuiteHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = AEGP_SuiteHandler.cpp; path = ../../Util/AEGP_SuiteHandler.cpp; sourceTree = SOURCE_ROOT; };
 		D0FE579C0993C5E500139A60 /* MissingSuiteError.cpp */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = sourcecode.cpp.cpp; name = MissingSuiteError.cpp; path = ../../Util/MissingSuiteError.cpp; sourceTree = SOURCE_ROOT; };
+		DBC38C80218CF6F200CC41DC /* libgifski.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libgifski.a; path = ../../../test/libgifski.a; sourceTree = "<group>"; };
+		DBC38C82218CF74C00CC41DC /* gifski.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gifski.h; sourceTree = "<group>"; };
 		DBC74B552167D9EC00D7B935 /* gif.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = gif.cpp; path = ../gif.cpp; sourceTree = "<group>"; };
 		DBC74B562167D9EC00D7B935 /* gif.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = gif.hpp; path = ../gif.hpp; sourceTree = "<group>"; };
 		DBC74B582167DA6D00D7B935 /* gifenc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = gifenc.h; path = ../gifenc.h; sourceTree = "<group>"; };
@@ -50,6 +52,7 @@
 		C4E6187C095A3C800012CA3F = {
 			isa = PBXGroup;
 			children = (
+				DBC38C82218CF74C00CC41DC /* gifski.h */,
 				DBC74B582167DA6D00D7B935 /* gifenc.h */,
 				DBC74B592167DA6D00D7B935 /* gifenc.c */,
 				DBC74B552167D9EC00D7B935 /* gif.cpp */,
@@ -60,6 +63,7 @@
 				D0FE57630993C4FD00139A60 /* Supporting Code */,
 				7EF36FE616F29AAE002A3CB3 /* Cocoa.framework */,
 				C4E6188C095A3C800012CA3F /* Products */,
+				DBC38C7F218CF6F200CC41DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -83,6 +87,14 @@
 				D0FE579C0993C5E500139A60 /* MissingSuiteError.cpp */,
 			);
 			name = "Supporting Code";
+			sourceTree = "<group>";
+		};
+		DBC38C7F218CF6F200CC41DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DBC38C80218CF6F200CC41DC /* libgifski.a */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +255,7 @@
 				);
 				INFOPLIST_FILE = "GifExploder.plugin-Info.plist";
 				INSTALL_PATH = "$(HOME)/Library/Bundles";
+				OTHER_LDFLAGS = ../../lib/libgifski.a;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mluders.GifExploder;
 				PRODUCT_NAME = GifExploder;
 				SDKROOT = macosx;
