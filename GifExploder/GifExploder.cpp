@@ -27,9 +27,13 @@
 #include <pthread.h>
 #include "gifski.h"
 
-gifski *g;
+const int MAX_WIDTH = 1024;
+const int MAX_HEIGHT = 1024;
 
-unsigned char pixels[800*400*4];
+gifski *g;
+GifskiSettings gifSettings;
+char outPath[AEGP_MAX_PATH_SIZE];
+unsigned char pixels[MAX_WIDTH*MAX_HEIGHT*4];
 
 pthread_t writerThread;
 
@@ -647,7 +651,7 @@ My_SetOutputFile(
 }
 
 static void *write_frames(void *context) {
-    gifski_write(g, "/Users/appfolio/desktop/hello.gif");
+    gifski_write(g, outPath);
     gifski_drop(g);
 }
 
@@ -732,46 +736,23 @@ My_StartAdding(
 			+	(keep file open)
 		*/
         uint8_t length = 0;
-        char buffer[AEGP_MAX_PATH_SIZE];
         for (int i=0; i<AEGP_MAX_PATH_SIZE; i++) {
             char c = file_pathZ[i];
-            buffer[i] = c;
+            outPath[i] = c;
             length += 1;
             if (c == '\0') break;
         }
         
-        //masterGIF = new HF_GIF(buffer, (int)widthL, (int)heightL);
-
-        /*GifskiSettings settings;
-        settings.width = widthL;
-        settings.height = heightL;
-        settings.quality = 100;
-        settings.once = false;
-        settings.fast = true;
-        finalGIF = gifski_new(&settings);
+        gifSettings.width = widthL < MAX_WIDTH ? widthL : MAX_WIDTH;
+        gifSettings.height = heightL < MAX_HEIGHT ? heightL : MAX_HEIGHT;
+        gifSettings.quality = 100;
+        gifSettings.once = false;
+        gifSettings.fast = true;
         
-        pthread_create(&writerThread, NULL, write_frames, NULL);*/
-        
-        
-        
-        
-        GifskiSettings settings;
-        settings.width = 800;
-        settings.height = 400;
-        settings.quality = 100;
-        settings.once = false;
-        settings.fast = true;
-        
-        g = gifski_new(&settings);
+        g = gifski_new(&gifSettings);
 
         pthread_create(&writerThread, NULL, write_frames, NULL);
-        
-        
-        
-   
-        
-        
-        
+
 		ERR(suites.MemorySuite1()->AEGP_UnlockMemHandle(file_pathH));
 		ERR(suites.MemorySuite1()->AEGP_FreeMemHandle(file_pathH));
 	}
@@ -780,13 +761,9 @@ My_StartAdding(
 };
 
 static PF_Pixel *sampleIntegral32(const PF_EffectWorld &def, int x, int y){
-    
     return (PF_Pixel*)((char*)def.data +
-                       
                        (y * def.rowbytes) +
-                       
                        (x * sizeof(PF_Pixel)));
-    
 }
 
 static A_Err	
@@ -805,37 +782,10 @@ My_AddFrame(
     #ifdef AE_OS_MAC
     #pragma unused (deep_worldB)
     #endif
-	
-	/*
-		+	reinterpret the provided frame into your format.
-		+	append it to the already-opened file.
-	*/
 
-    /*for (int i=0; i<masterGIF->height; i++) {
-        for (int j=0; j<masterGIF->width; j++) {
-            PF_Pixel *pixel = sampleIntegral32(*wP, j, i);
-            //masterGIF->set_pixel(pixel->red, pixel->green, pixel->blue);
-        }
-     }
-    masterGIF->add_frame();*/
-    
-    /*unsigned char* pixels = new unsigned char[800*400*4];
-    for (int i=0; i<400; i++) {
-        for (int j=0; j<800; j++) {
-            PF_Pixel *pixel = sampleIntegral32(*wP, j, i);
-            pixels[i+j+0] = pixel->red;
-            pixels[i+j+1] = pixel->green;
-            pixels[i+j+2] = pixel->blue;
-            pixels[i+j+3] = 255;
-            //masterGIF->set_pixel(pixel->red, pixel->green, pixel->blue);
-        }
-    }
-    gifski_add_frame_rgba(finalGIF, 0, 800, 400, pixels, 4);
-    delete[] pixels;*/
-    
-    for (int i=0; i<400; i++) {
-        for (int j=0; j<800; j++) {
-            int currentPixel = ((i*800) + j) * 4;
+    for (int i=0; i<gifSettings.height; i++) {
+        for (int j=0; j<gifSettings.width; j++) {
+            int currentPixel = ((i*gifSettings.width) + j) * 4;
             PF_Pixel *pixel = sampleIntegral32(*wP, j, i);
             pixels[currentPixel+0] = pixel->red;
             pixels[currentPixel+1] = pixel->green;
@@ -843,12 +793,9 @@ My_AddFrame(
             pixels[currentPixel+3] = 255;
         }
     }
-    
-    
-    gifski_add_frame_rgba(g, frame_index, 800, 400, pixels, 5);
-    
-    
-    
+
+    gifski_add_frame_rgba(g, frame_index, gifSettings.width, gifSettings.height, pixels, 5);
+
 	return err; 
 };
 								
@@ -858,28 +805,11 @@ My_EndAdding(
 	AEIO_OutSpecH			outH, 
 	A_long					flags)
 {
-	/*
-		+	Close file handle, clear out optionsH associated with add.
-	*/
-
-    //masterGIF->close_gif();
-    //gifski_end_adding_frames(finalGIF);
-
-    //pthread_join(writerThread, NULL);
-    
-    
-    
     gifski_end_adding_frames(g);
     pthread_join(writerThread, NULL);
-    
-    
-    
-    
-    
-    
-    
+
     endTime = std::chrono::high_resolution_clock::now();
-    
+
     auto elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>( endTime - startTime ).count();
     std::cout << "Elapsed time:    " << elapsedTime << "ms" << std::endl;
 
